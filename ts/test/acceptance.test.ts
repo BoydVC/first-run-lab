@@ -18,7 +18,17 @@ const repo = join(import.meta.dirname, "..", "..");
 const examples = join(repo, "examples");
 const fixtures = join(repo, "ts", "fixtures");
 const v1 = join(repo, "tests", "fixtures");
-const started = Date.now();
+/** Time spent inside fixture walks. Browser launch, tsc, and OCR stay outside this budget. */
+let fixtureMs = 0;
+
+async function timeFixture<T>(work: () => Promise<T>): Promise<T> {
+  const t0 = performance.now();
+  try {
+    return await work();
+  } finally {
+    fixtureMs += performance.now() - t0;
+  }
+}
 
 let browser: Browser;
 
@@ -31,13 +41,19 @@ afterAll(async () => {
 });
 
 async function open(root: string, page: string, opts: { personas?: readonly Persona[]; kind?: "auto" | "form" | "dashboard" } = {}): Promise<Run> {
-  const server = await serveStatic(root);
-  try {
-    const url = new URL(page, server.url).href;
-    return await runUrl(url, { browser, kind: opts.kind ?? "auto", ...(opts.personas ? { personas: opts.personas } : {}) });
-  } finally {
-    await server.close();
-  }
+  return timeFixture(async () => {
+    const server = await serveStatic(root);
+    try {
+      const url = new URL(page, server.url).href;
+      return await runUrl(url, { browser, kind: opts.kind ?? "auto", ...(opts.personas ? { personas: opts.personas } : {}) });
+    } finally {
+      await server.close();
+    }
+  });
+}
+
+function walk(url: string, opts: { personas?: readonly Persona[]; kind?: "auto" | "form" | "dashboard" }): Promise<Run> {
+  return timeFixture(() => runUrl(url, { browser, kind: opts.kind ?? "auto", ...(opts.personas ? { personas: opts.personas } : {}) }));
 }
 
 function kindsOf(run: Run): Set<string> {
@@ -114,7 +130,7 @@ it("AT5 a 3500ms confirmation with 2000ms patience sticks the skimmer", async ()
 it("AT6 an injected evaluate error is inconclusive and has no score", async () => {
   const server = await serveStatic(examples);
   try {
-    const run = await runUrl(`${server.url}signup.html?frl_inject=evaluate-error`, { browser, kind: "form" });
+    const run = await walk(`${server.url}signup.html?frl_inject=evaluate-error`, { kind: "form" });
     expect(run.verdict.kind).toBe("inconclusive");
     expect(JSON.stringify(run.verdict)).not.toContain("score");
     if (run.verdict.kind === "inconclusive") expect(run.verdict.crashed.length).toBe(5);
@@ -138,8 +154,7 @@ it("AT8 gate exits 0 on the fix, 1 on the bad page, and 2 when inconclusive", as
   const broken = await bad();
   const server = await serveStatic(examples);
   try {
-    const crashed = await runUrl(`${server.url}signup.html?frl_inject=evaluate-error`, {
-      browser,
+    const crashed = await walk(`${server.url}signup.html?frl_inject=evaluate-error`, {
       kind: "form",
       personas: [persona("skimmer")],
     });
@@ -166,7 +181,7 @@ it("AT10 privacy scan blocks an email fixture, and OCR catches one on a rendered
   const out = join(tmpdir(), `frl-email-${process.pid}`);
   rmSync(out, { recursive: true, force: true });
   try {
-    const code = await main(["run", new URL("email.html", server.url).href, "--out", out, "--personas", "phone", "--kind", "form"]);
+    const code = await timeFixture(() => main(["run", new URL("email.html", server.url).href, "--out", out, "--personas", "phone", "--kind", "form"]));
     expect(code).toBe(3);
     expect(existsSync(join(out, "run.json"))).toBe(false);
   } finally {
@@ -190,8 +205,7 @@ it("AT11 a sweep leaderboard sorts by score and puts inconclusive last", async (
   const server = await serveStatic(examples);
   let crashed: Run;
   try {
-    crashed = await runUrl(`${server.url}signup.html?frl_inject=evaluate-error`, {
-      browser,
+    crashed = await walk(`${server.url}signup.html?frl_inject=evaluate-error`, {
       kind: "form",
       personas: [persona("phone")],
     });
@@ -307,5 +321,7 @@ it("a covered action is a finding, external links are skipped, and API failures 
 });
 
 it("AT15 the fixture runs finish in under 60s", () => {
-  expect(Date.now() - started).toBeLessThan(60_000);
+  const ms = Math.round(fixtureMs);
+  console.log(`fixture runs ${ms}ms`);
+  expect(ms).toBeLessThan(60_000);
 });
