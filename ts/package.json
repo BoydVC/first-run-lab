@@ -1,0 +1,27 @@
+{
+  "name": "first-run-lab",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "First-Run Lab v2: TypeScript + Playwright engine. Not published.",
+  "engines": { "node": ">=22" },
+  "bin": { "frl-ts": "./src/cli.ts" },
+  "scripts": {
+    "typecheck": "tsc --strict --noEmit",
+    "test": "vitest run",
+    "demo": "tsx src/demo.ts",
+    "tlc": "tsx src/tla-cli.ts && bash scripts/run-tlc.sh"
+  },
+  "dependencies": {
+    "gifenc": "^1.0.3",
+    "playwright": "^1.49.0",
+    "pngjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/pngjs": "^6.0.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

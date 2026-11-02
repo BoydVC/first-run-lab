@@ -5,3 +5,6 @@ frl-out/
 sweep.json
 leaderboard.html
 tests/fixtures/o4/_out/
+ts/node_modules/
+ts/.tools/
+tools/tla2tools.jar
