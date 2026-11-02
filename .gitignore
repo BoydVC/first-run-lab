@@ -1,0 +1,7 @@
+__pycache__/
+*.egg-info/
+.venv/
+frl-out/
+sweep.json
+leaderboard.html
+tests/fixtures/o4/_out/

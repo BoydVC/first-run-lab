@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Pinecrest Bake Sale</title>
+<style>body{font-family:sans-serif;margin:0;padding:16px;max-width:900px}
+.hero{display:flex;gap:12px;align-items:center}.wide{width:1100px;background:#fde;padding:4px}
+button{padding:10px 16px}.tiny{padding:1px 3px;font-size:10px}
+*:focus{outline:none}#toast{display:none;color:green}</style></head><body>
+<div class="hero"><h1>Pinecrest Bake Sale</h1><button id="menu" class="tiny">☰</button></div>
+<p class="wide">Saturday 10am - sign up to bring a treat!</p>
+<form id="f"><input id="name" placeholder="Your name">
+<select id="item"><option value="">Pick a treat</option><option>Cookies</option><option>Brownies</option></select>
+<div id="signup" style="display:inline-block;padding:10px;background:#36c;color:#fff;cursor:pointer" onclick="go()">Sign up</div>
+</form><p id="toast">Thanks! You're on the list.</p>
+<p><a href="/help.html">Help</a> · <a href="/missing.html">Allergy info</a></p>
+<script>function go(){const n=document.getElementById('name').value,i=document.getElementById('item').value;
+if(!n||!i)return; /* silent failure: no message */
+setTimeout(()=>{document.getElementById('toast').style.display='block'},3500)}</script></body></html>

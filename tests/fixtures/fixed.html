@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Pinecrest Bake Sale</title>
+<style>body{font-family:sans-serif;padding:16px;max-width:600px}button{padding:12px 18px;min-height:44px}#err{color:#b00}</style></head><body>
+<h1>Pinecrest Bake Sale</h1><p>Saturday 10am — sign up to bring a treat.</p>
+<form id="f" onsubmit="event.preventDefault();go()"><label>Name <input id="name" style="min-height:32px"></label>
+<label>Treat <select id="item" style="min-height:32px"><option value="">Pick a treat</option><option>Cookies</option></select></label>
+<button id="signup" type="submit">Sign up</button></form><p id="err" role="alert"></p><p id="toast" role="status"></p>
+<p><a href="/help.html">Help</a></p>
+<script>function go(){const n=document.getElementById('name').value,i=document.getElementById('item').value;if(!n||!i){document.getElementById('err').textContent='Please add your name and a treat.';return}
+document.getElementById('err').textContent='';document.getElementById('toast').textContent="Thanks! You're on the list."}</script></body></html>
