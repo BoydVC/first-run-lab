@@ -112,3 +112,10 @@ def test_external_links_not_checked_or_used_as_cta_offline():
 def test_partial_api_failure_is_a_finding_not_unscorable():
     r = _run("o1", "partialapi.html", 8807)
     assert r["score"] is not None and any("broken_api" in h["kinds"] for h in r["hotspots"])
+def test_links_in_collapsed_details_are_not_visible_controls():
+    r = _run("o1", "collapsed.html", 8811)
+    kinds = {k for h in r["hotspots"] for k in h["kinds"]}
+    assert "unnamed_control" not in kinds and "unreachable_by_keyboard" not in kinds
+def test_keyboard_tabs_until_focus_wraps_past_extra_tab_stops():
+    r = _run("o1", "manystops.html", 8812)
+    assert "unreachable_by_keyboard" not in {k for h in r["hotspots"] for k in h["kinds"]}

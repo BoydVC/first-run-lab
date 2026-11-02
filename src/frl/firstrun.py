@@ -40,8 +40,9 @@ def controls(page):
       return {i, tag:e.tagName.toLowerCase(), text:(e.innerText||e.value||'').trim().slice(0,40),
         name:(e.getAttribute('aria-label')||lab||e.getAttribute('title')||'').trim(), placeholder:e.getAttribute('placeholder')||'',
         role:e.getAttribute('role')||'', key:(e.getAttribute('aria-label')||(e.labels&&e.labels.length?e.labels[0].innerText:'')||e.getAttribute('placeholder')||(e.tagName==='SELECT'?'':(e.innerText||''))||e.id||e.tagName).trim().split(String.fromCharCode(10))[0].slice(0,30), tabindex:e.tabIndex, w:r.width, h:r.height, href:e.getAttribute('href')||'',
-        vis: !!(e.offsetParent||e.getClientRects().length) && r.width>0 && r.height>0 && getComputedStyle(e).visibility!=='hidden' && !e.closest('[aria-hidden=true],[inert],dialog:not([open])') && !e.disabled,
+        vis: !!(e.offsetParent||e.getClientRects().length) && (!e.checkVisibility||e.checkVisibility()) && r.width>0 && r.height>0 && getComputedStyle(e).visibility!=='hidden' && !e.closest('[aria-hidden=true],[inert],dialog:not([open])') && !e.disabled,
         clickOnly: e.hasAttribute('onclick') && !['a','button','input','select'].includes(e.tagName.toLowerCase())}})""")
+TAB_CAP = 1000
 def visible(page): return [c for c in controls(page) if c["vis"]]
 
 def dismiss_overlays(page):
@@ -128,7 +129,9 @@ def run_persona(pw, persona, url, budget, kind="form"):
         elif pid == "keyboard":
             seen, nofocus = set(), set()
             first = None
-            for _ in range(len(cs) + 5):  # Tab presses don't spend the step budget
+            # Tab until focus wraps to the first stop again (pages can have more tab stops than controls,
+            # e.g. focusable cards); TAB_CAP bounds pages that trap focus. Tab presses don't spend the step budget.
+            for _ in range(TAB_CAP):
                 page.keyboard.press("Tab")
                 info = page.evaluate("""()=>{const e=document.activeElement; if(!e||e===document.body) return null;
                   const st=getComputedStyle(e); return {i:e.dataset.frl, outline:st.outlineStyle!=='none'&&st.outlineWidth!=='0px', shadow:st.boxShadow!=='none'}}""")
