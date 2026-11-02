@@ -1,0 +1,9 @@
+{
+  "id": "screenreader",
+  "label": "Screen reader",
+  "viewport": { "w": 1280, "h": 800 },
+  "touch": false,
+  "patienceMs": 3000,
+  "goal": "understand every control by its name",
+  "checks": ["unnamed_control", "unlabeled_field", "fake_button"]
+}

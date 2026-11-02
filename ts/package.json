@@ -1,0 +1,29 @@
+{
+  "name": "first-run-lab",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Five synthetic first-time users walk a local web app and show where they get stuck.",
+  "bin": {
+    "first-run-lab": "./dist/cli.js",
+    "frl": "./dist/cli.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "prepare": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json",
+    "test": "tsc -p tsconfig.json && node --import tsx --test --test-concurrency=1 test/*.test.ts",
+    "demo": "node --import tsx scripts/make-demo.ts",
+    "tla": "bash scripts/check-tla.sh"
+  },
+  "dependencies": {
+    "playwright": "^1.49.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

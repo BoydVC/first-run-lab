@@ -1,0 +1,9 @@
+{
+  "id": "phone",
+  "label": "Phone thumb",
+  "viewport": { "w": 375, "h": 740 },
+  "touch": true,
+  "patienceMs": 2500,
+  "goal": "use it one-handed on a phone",
+  "checks": ["tiny_tap_target", "small_tap_target", "horizontal_scroll"]
+}

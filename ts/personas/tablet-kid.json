@@ -1,0 +1,9 @@
+{
+  "id": "tablet-kid",
+  "label": "Tablet kid",
+  "viewport": { "w": 1024, "h": 768 },
+  "touch": true,
+  "patienceMs": 4000,
+  "goal": "tap the big controls and tell what they do",
+  "checks": ["tiny_tap_target", "small_tap_target", "unnamed_control"]
+}

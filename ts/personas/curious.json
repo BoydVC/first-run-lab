@@ -1,0 +1,9 @@
+{
+  "id": "curious",
+  "label": "Curious clicker",
+  "viewport": { "w": 1280, "h": 800 },
+  "touch": false,
+  "patienceMs": 3000,
+  "goal": "open every link",
+  "checks": ["dead_link"]
+}

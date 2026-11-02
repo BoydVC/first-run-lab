@@ -1,0 +1,9 @@
+{
+  "id": "keyboard",
+  "label": "Keyboard-only",
+  "viewport": { "w": 1280, "h": 800 },
+  "touch": false,
+  "patienceMs": 3000,
+  "goal": "reach every control with Tab",
+  "checks": ["unreachable_by_keyboard", "invisible_focus"]
+}

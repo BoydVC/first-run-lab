@@ -1,0 +1,9 @@
+{
+  "id": "skimmer",
+  "label": "Skimmer",
+  "viewport": { "w": 1280, "h": 800 },
+  "touch": false,
+  "patienceMs": 2000,
+  "goal": "complete the main call to action",
+  "checks": ["no_clear_cta", "silent_failure", "slow_or_no_confirmation"]
+}
