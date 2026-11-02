@@ -41,3 +41,15 @@ Sample output: [`examples/report-demo.html`](examples/report-demo.html) and [`ex
 ```bash
 pip install -e ".[test]" && pytest -q
 ```
+
+## TypeScript engine
+
+`ts/` is the v2 engine (Node 22, Playwright, vitest). Python v1 stays the reference oracle for the pages in `examples/`. Divergences, including two v1 bugs v2 does not copy, are listed in [`ts/DIVERGENCES.md`](ts/DIVERGENCES.md).
+
+```bash
+cd ts && npm ci && npx tsc --strict --noEmit && npx vitest run
+npx tsx src/cli.ts run ../examples/signup.html --out /tmp/frl-ts
+npx tsx src/cli.ts gate ../examples/signup-fixed.html --min 80
+```
+
+`npx tsx src/demo.ts` rebuilds `screenshots/demo-ts.gif` from the synthetic bake-sale pages and refuses to write it if the regex or OCR privacy scan hits. The session statechart in `ts/src/statechart.ts` generates `ts/spec/Session.tla`; `bash scripts/run-tlc.sh` model-checks it.
