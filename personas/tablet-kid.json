@@ -1,0 +1,9 @@
+{
+  "id": "tablet-kid",
+  "label": "Tablet kid",
+  "viewport": { "w": 1024, "h": 768 },
+  "touch": true,
+  "patienceMs": 4000,
+  "goal": "finish the activity on a tablet",
+  "checks": ["tiny_tap_target", "small_tap_target", "horizontal_scroll", "no_clear_cta"]
+}

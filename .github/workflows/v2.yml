@@ -1,0 +1,26 @@
+name: v2
+on: [push, pull_request]
+jobs:
+  ts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tesseract
+        run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - run: npm ci
+        working-directory: ts
+      - run: npx playwright install chromium
+        working-directory: ts
+      - run: npx tsc --strict --noEmit
+        working-directory: ts
+      - run: npx vitest run
+        working-directory: ts
+      - run: node tools/gen-statechart.mjs --check
+      - run: bash tools/check-tlc.sh
