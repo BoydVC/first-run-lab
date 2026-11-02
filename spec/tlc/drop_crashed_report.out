@@ -1,0 +1,178 @@
+TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
+Running breadth-first search Model-Checking with fp 106 and seed 4471939987366320 with 1 worker on 4 cores with 1820MB heap and 64MB offheap memory [pid: 3575] (Linux 6.12.94+ amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file /workspace/spec/FirstRunLab.tla
+Parsing file /tmp/Naturals.tla
+Parsing file /tmp/FiniteSets.tla
+Parsing file /tmp/Sequences.tla
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module FirstRunLab
+Starting... (2026-11-02 15:08:34)
+Implied-temporal checking--satisfiability problem has 2 branches.
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2026-11-02 15:08:34.
+Progress(18) at 2026-11-02 15:08:35: 17,095 states generated, 5,150 distinct states found, 0 states left on queue.
+Checking 2 branches of temporal properties for the complete state space with 10300 total distinct states at (2026-11-02 15:08:35)
+Error: Temporal properties were violated.
+
+Error: The following behavior constitutes a counter-example:
+
+State 1: <Initial predicate>
+/\ state = <<"queued", "queued", "queued">>
+/\ seen = <<FALSE, FALSE, FALSE>>
+/\ lastFrom = <<"none", "none", "none">>
+/\ lastTo = <<"none", "none", "none">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "idle"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"", "", "">>
+
+State 2: <Start line 134, col 3 to line 136, col 55 of module FirstRunLab>
+/\ state = <<"launching", "queued", "queued">>
+/\ seen = <<FALSE, FALSE, FALSE>>
+/\ lastFrom = <<"queued", "none", "none">>
+/\ lastTo = <<"launching", "none", "none">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"start", "", "">>
+
+State 3: <Error line 162, col 6 to line 163, col 53 of module FirstRunLab>
+/\ state = <<"crashed", "queued", "queued">>
+/\ seen = <<FALSE, FALSE, FALSE>>
+/\ lastFrom = <<"launching", "none", "none">>
+/\ lastTo = <<"crashed", "none", "none">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"error", "", "">>
+
+State 4: <Start line 134, col 3 to line 136, col 55 of module FirstRunLab>
+/\ state = <<"crashed", "launching", "queued">>
+/\ seen = <<FALSE, FALSE, FALSE>>
+/\ lastFrom = <<"launching", "queued", "none">>
+/\ lastTo = <<"crashed", "launching", "none">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"error", "start", "">>
+
+State 5: <WaitForever line 173, col 3 to line 177, col 68 of module FirstRunLab>
+/\ state = <<"crashed", "launching", "queued">>
+/\ seen = <<FALSE, FALSE, FALSE>>
+/\ lastFrom = <<"launching", "queued", "none">>
+/\ lastTo = <<"crashed", "launching", "none">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 1
+/\ realCount = 0
+/\ lastWhy = <<"error", "start", "">>
+
+State 6: <Start line 134, col 3 to line 136, col 55 of module FirstRunLab>
+/\ state = <<"crashed", "launching", "launching">>
+/\ seen = <<FALSE, FALSE, FALSE>>
+/\ lastFrom = <<"launching", "queued", "queued">>
+/\ lastTo = <<"crashed", "launching", "launching">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 1
+/\ realCount = 0
+/\ lastWhy = <<"error", "start", "start">>
+
+State 7: <Error line 162, col 6 to line 163, col 53 of module FirstRunLab>
+/\ state = <<"crashed", "crashed", "launching">>
+/\ seen = <<FALSE, FALSE, FALSE>>
+/\ lastFrom = <<"launching", "launching", "queued">>
+/\ lastTo = <<"crashed", "crashed", "launching">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 1
+/\ realCount = 0
+/\ lastWhy = <<"error", "error", "start">>
+
+State 8: <Load line 139, col 3 to line 140, col 53 of module FirstRunLab>
+/\ state = <<"crashed", "crashed", "exploring">>
+/\ seen = <<FALSE, FALSE, FALSE>>
+/\ lastFrom = <<"launching", "launching", "launching">>
+/\ lastTo = <<"crashed", "crashed", "exploring">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 1
+/\ realCount = 0
+/\ lastWhy = <<"error", "error", "loaded">>
+
+State 9: <Step line 143, col 3 to line 145, col 51 of module FirstRunLab>
+/\ state = <<"crashed", "crashed", "exploring">>
+/\ seen = <<FALSE, FALSE, FALSE>>
+/\ lastFrom = <<"launching", "launching", "exploring">>
+/\ lastTo = <<"crashed", "crashed", "exploring">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "none">>
+/\ steps = <<0, 0, 1>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 1
+/\ realCount = 0
+/\ lastWhy = <<"error", "error", "step">>
+
+State 10: <Complete line 153, col 3 to line 154, col 56 of module FirstRunLab>
+/\ state = <<"crashed", "crashed", "done">>
+/\ seen = <<FALSE, FALSE, FALSE>>
+/\ lastFrom = <<"launching", "launching", "exploring">>
+/\ lastTo = <<"crashed", "crashed", "done">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "none">>
+/\ steps = <<0, 0, 1>>
+/\ finding = <<"none", "none", "c1">>
+/\ phase = "running"
+/\ bit = 1
+/\ realCount = 0
+/\ lastWhy = <<"error", "error", "checks_complete">>
+
+State 11: <Report line 168, col 3 to line 168, col 52 of module FirstRunLab>
+/\ state = <<"crashed", "crashed", "reported">>
+/\ seen = <<FALSE, FALSE, TRUE>>
+/\ lastFrom = <<"launching", "launching", "done">>
+/\ lastTo = <<"crashed", "crashed", "reported">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "done">>
+/\ steps = <<0, 0, 1>>
+/\ finding = <<"none", "none", "c1">>
+/\ phase = "running"
+/\ bit = 1
+/\ realCount = 0
+/\ lastWhy = <<"error", "error", "report">>
+
+State 12: Stuttering
+Finished checking temporal properties in 00s at 2026-11-02 15:08:35
+17095 states generated, 5150 distinct states found, 0 states left on queue.
+Finished in 01s at (2026-11-02 15:08:35)

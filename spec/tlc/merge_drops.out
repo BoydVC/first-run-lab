@@ -1,0 +1,188 @@
+TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
+Running breadth-first search Model-Checking with fp 2 and seed -4512904280283760566 with 1 worker on 4 cores with 1820MB heap and 64MB offheap memory [pid: 3641] (Linux 6.12.94+ amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file /workspace/spec/FirstRunLab.tla
+Parsing file /tmp/Naturals.tla
+Parsing file /tmp/FiniteSets.tla
+Parsing file /tmp/Sequences.tla
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module FirstRunLab
+Starting... (2026-11-02 15:08:37)
+Implied-temporal checking--satisfiability problem has 2 branches.
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2026-11-02 15:08:37.
+Error: Invariant I6 is violated.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ state = <<"queued", "queued", "queued">>
+/\ seen = <<FALSE, FALSE, FALSE>>
+/\ lastFrom = <<"none", "none", "none">>
+/\ lastTo = <<"none", "none", "none">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "idle"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"", "", "">>
+
+State 2: <Start line 134, col 3 to line 136, col 55 of module FirstRunLab>
+/\ state = <<"launching", "queued", "queued">>
+/\ seen = <<FALSE, FALSE, FALSE>>
+/\ lastFrom = <<"queued", "none", "none">>
+/\ lastTo = <<"launching", "none", "none">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"start", "", "">>
+
+State 3: <Error line 162, col 6 to line 163, col 53 of module FirstRunLab>
+/\ state = <<"crashed", "queued", "queued">>
+/\ seen = <<FALSE, FALSE, FALSE>>
+/\ lastFrom = <<"launching", "none", "none">>
+/\ lastTo = <<"crashed", "none", "none">>
+/\ mergedCount = 0
+/\ pre = <<"none", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"error", "", "">>
+
+State 4: <Report line 168, col 3 to line 168, col 52 of module FirstRunLab>
+/\ state = <<"reported", "queued", "queued">>
+/\ seen = <<TRUE, FALSE, FALSE>>
+/\ lastFrom = <<"crashed", "none", "none">>
+/\ lastTo = <<"reported", "none", "none">>
+/\ mergedCount = 0
+/\ pre = <<"crashed", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"report", "", "">>
+
+State 5: <Start line 134, col 3 to line 136, col 55 of module FirstRunLab>
+/\ state = <<"reported", "launching", "queued">>
+/\ seen = <<TRUE, FALSE, FALSE>>
+/\ lastFrom = <<"crashed", "queued", "none">>
+/\ lastTo = <<"reported", "launching", "none">>
+/\ mergedCount = 0
+/\ pre = <<"crashed", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"report", "start", "">>
+
+State 6: <Error line 162, col 6 to line 163, col 53 of module FirstRunLab>
+/\ state = <<"reported", "crashed", "queued">>
+/\ seen = <<TRUE, FALSE, FALSE>>
+/\ lastFrom = <<"crashed", "launching", "none">>
+/\ lastTo = <<"reported", "crashed", "none">>
+/\ mergedCount = 0
+/\ pre = <<"crashed", "none", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"report", "error", "">>
+
+State 7: <Report line 168, col 3 to line 168, col 52 of module FirstRunLab>
+/\ state = <<"reported", "reported", "queued">>
+/\ seen = <<TRUE, TRUE, FALSE>>
+/\ lastFrom = <<"crashed", "crashed", "none">>
+/\ lastTo = <<"reported", "reported", "none">>
+/\ mergedCount = 0
+/\ pre = <<"crashed", "crashed", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"report", "report", "">>
+
+State 8: <Start line 134, col 3 to line 136, col 55 of module FirstRunLab>
+/\ state = <<"reported", "reported", "launching">>
+/\ seen = <<TRUE, TRUE, FALSE>>
+/\ lastFrom = <<"crashed", "crashed", "queued">>
+/\ lastTo = <<"reported", "reported", "launching">>
+/\ mergedCount = 0
+/\ pre = <<"crashed", "crashed", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"report", "report", "start">>
+
+State 9: <Load line 139, col 3 to line 140, col 53 of module FirstRunLab>
+/\ state = <<"reported", "reported", "exploring">>
+/\ seen = <<TRUE, TRUE, FALSE>>
+/\ lastFrom = <<"crashed", "crashed", "launching">>
+/\ lastTo = <<"reported", "reported", "exploring">>
+/\ mergedCount = 0
+/\ pre = <<"crashed", "crashed", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "none">>
+/\ phase = "running"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"report", "report", "loaded">>
+
+State 10: <Complete line 153, col 3 to line 154, col 56 of module FirstRunLab>
+/\ state = <<"reported", "reported", "done">>
+/\ seen = <<TRUE, TRUE, FALSE>>
+/\ lastFrom = <<"crashed", "crashed", "exploring">>
+/\ lastTo = <<"reported", "reported", "done">>
+/\ mergedCount = 0
+/\ pre = <<"crashed", "crashed", "none">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "c1">>
+/\ phase = "running"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"report", "report", "checks_complete">>
+
+State 11: <Report line 168, col 3 to line 168, col 52 of module FirstRunLab>
+/\ state = <<"reported", "reported", "reported">>
+/\ seen = <<TRUE, TRUE, TRUE>>
+/\ lastFrom = <<"crashed", "crashed", "done">>
+/\ lastTo = <<"reported", "reported", "reported">>
+/\ mergedCount = 0
+/\ pre = <<"crashed", "crashed", "done">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "c1">>
+/\ phase = "running"
+/\ bit = 0
+/\ realCount = 0
+/\ lastWhy = <<"report", "report", "report">>
+
+State 12: <Derive line 186, col 3 to line 196, col 89 of module FirstRunLab>
+/\ state = <<"reported", "reported", "reported">>
+/\ seen = <<TRUE, TRUE, TRUE>>
+/\ lastFrom = <<"crashed", "crashed", "done">>
+/\ lastTo = <<"reported", "reported", "reported">>
+/\ mergedCount = 0
+/\ pre = <<"crashed", "crashed", "done">>
+/\ steps = <<0, 0, 0>>
+/\ finding = <<"none", "none", "c1">>
+/\ phase = "inconclusive"
+/\ bit = 0
+/\ realCount = 1
+/\ lastWhy = <<"report", "report", "report">>
+
+10627 states generated, 3910 distinct states found, 1038 states left on queue.
+The depth of the complete state graph search is 12.
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 6 and the 95th percentile is 4).
+Finished in 01s at (2026-11-02 15:08:38)
