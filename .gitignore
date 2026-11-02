@@ -9,5 +9,6 @@ node_modules/
 ts/node_modules/
 ts/dist/
 ts/.cache/
+ts/tla/states/
 runs/
 diff.html
