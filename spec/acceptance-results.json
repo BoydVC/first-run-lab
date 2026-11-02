@@ -1,0 +1,100 @@
+{
+  "ms": 30347,
+  "results": [
+    {
+      "id": "AT1",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "AT2",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "AT3",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "AT5",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "AT4",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "AT6",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "AT7",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "AT8",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "AT9",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "AT10",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "AT11",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "AT12",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "AT14",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "closed-section",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "tab-wrap",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "tap-targets",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "canvas-dashboard-hints",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "dashboard",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "id": "AT15",
+      "pass": true,
+      "detail": "30347ms"
+    }
+  ]
+}

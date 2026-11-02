@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><title>Sections</title>
+<style>
+  details:not([open]) > *:not(summary) { display: block !important; height: auto !important; }
+  #acc { display: block; padding: 8px; }
+  button { min-width: 48px; min-height: 48px; }
+</style>
+<button id="seen-icon"></button>
+<details>
+  <summary>More</summary>
+  <button id="hidden-details"></button>
+</details>
+<button type="button" aria-expanded="false" aria-controls="acc">Section</button>
+<div id="acc"><button id="hidden-acc"></button></div>

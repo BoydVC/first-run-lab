@@ -36,8 +36,26 @@ Sample output: [`examples/report-demo.html`](examples/report-demo.html) and [`ex
 
 **Safety.** Only localhost targets are allowed. Requests to other hosts are blocked, and off-site links are neither checked nor clicked. Reports are scanned for emails, phone numbers and SSNs, and any run whose report contains one is refused. Set `FRL_REDACT=word1,word2` to blank out extra words.
 
+## TypeScript v2
+
+v2 lives in `ts/` and follows `spec/FirstRunLab.tla`. The Python package above is unchanged. From the repo folder, with Node 22:
+
+```bash
+cd ts && npm install && npx playwright install chromium
+node --import tsx src/cli.ts run ../examples/signup.html --kind form
+node --import tsx src/cli.ts gate ../examples/signup-fixed.html --min 80 --kind form
+node --import tsx src/cli.ts replay ../runs/demo-bad --fixed ../runs/demo-fixed --gif ../screenshots/demo-ts.gif
+```
+
+`npm test` regenerates nothing by itself; CI runs `node tools/gen-statechart.mjs` and fails if `ts/src/statechart.generated.ts` drifts from the TLA+ tables. TLC must accept the model and reject the three mutants (`tools/check-tlc.sh`).
+
+Divergences from v1, including the two intentional bug fixes (closed sections, tab-until-wrap), are in [`spec/DIVERGENCES.md`](spec/DIVERGENCES.md).
+
+![v2 demo](screenshots/demo-ts.gif)
+
 ## Development
 
 ```bash
 pip install -e ".[test]" && pytest -q
+cd ts && npm test && npm run typecheck
 ```

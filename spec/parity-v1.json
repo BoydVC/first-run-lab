@@ -1,0 +1,241 @@
+{
+  "examples/signup.html": {
+    "score": 36,
+    "verdict": "scored",
+    "hotspots": [
+      {
+        "id": "F0b8149",
+        "control": "Sign up",
+        "severity": "blocker",
+        "kinds": [
+          "silent_failure",
+          "slow_or_no_confirmation",
+          "unreachable_by_keyboard",
+          "small_tap_target",
+          "fake_button"
+        ],
+        "personas": [
+          "skimmer",
+          "keyboard",
+          "phone",
+          "screenreader"
+        ]
+      },
+      {
+        "id": "Fda86fe",
+        "control": "\u2630",
+        "severity": "blocker",
+        "kinds": [
+          "tiny_tap_target",
+          "unnamed_control"
+        ],
+        "personas": [
+          "phone",
+          "screenreader"
+        ]
+      },
+      {
+        "id": "F767013",
+        "control": "page",
+        "severity": "major",
+        "kinds": [
+          "invisible_focus",
+          "horizontal_scroll"
+        ],
+        "personas": [
+          "keyboard",
+          "phone"
+        ]
+      },
+      {
+        "id": "Fab4229",
+        "control": "Your name",
+        "severity": "major",
+        "kinds": [
+          "tiny_tap_target",
+          "unlabeled_field"
+        ],
+        "personas": [
+          "phone",
+          "screenreader"
+        ]
+      },
+      {
+        "id": "F3a7d97",
+        "control": "item",
+        "severity": "major",
+        "kinds": [
+          "tiny_tap_target",
+          "unlabeled_field"
+        ],
+        "personas": [
+          "phone",
+          "screenreader"
+        ]
+      },
+      {
+        "id": "F38aed5",
+        "control": "Allergy info",
+        "severity": "major",
+        "kinds": [
+          "dead_link"
+        ],
+        "personas": [
+          "linkchecker"
+        ]
+      }
+    ]
+  },
+  "examples/signup-fixed.html": {
+    "score": 100,
+    "verdict": "scored",
+    "hotspots": []
+  },
+  "examples/help.html": {
+    "score": 98,
+    "verdict": "scored",
+    "hotspots": [
+      {
+        "id": "F767013",
+        "control": "page",
+        "severity": "minor",
+        "kinds": [
+          "no_clear_cta"
+        ],
+        "personas": [
+          "skimmer"
+        ]
+      }
+    ]
+  },
+  "examples/leaderboard-demo.html": {
+    "score": 98,
+    "verdict": "scored",
+    "hotspots": [
+      {
+        "id": "F767013",
+        "control": "page",
+        "severity": "minor",
+        "kinds": [
+          "no_clear_cta"
+        ],
+        "personas": [
+          "skimmer"
+        ]
+      }
+    ]
+  },
+  "examples/report-demo.html": {
+    "score": 98,
+    "verdict": "scored",
+    "hotspots": [
+      {
+        "id": "F767013",
+        "control": "page",
+        "severity": "minor",
+        "kinds": [
+          "no_clear_cta",
+          "horizontal_scroll"
+        ],
+        "personas": [
+          "skimmer",
+          "phone"
+        ]
+      }
+    ]
+  },
+  "ts/fixtures/closed-section.html": {
+    "score": 38,
+    "verdict": "scored",
+    "hotspots": [
+      {
+        "id": "F55a971",
+        "control": "hidden-details",
+        "severity": "blocker",
+        "kinds": [
+          "unreachable_by_keyboard",
+          "unnamed_control"
+        ],
+        "personas": [
+          "keyboard",
+          "screenreader"
+        ]
+      },
+      {
+        "id": "Fbfb1ac",
+        "control": "seen-icon",
+        "severity": "blocker",
+        "kinds": [
+          "unnamed_control"
+        ],
+        "personas": [
+          "screenreader"
+        ]
+      },
+      {
+        "id": "F0e00cf",
+        "control": "hidden-acc",
+        "severity": "blocker",
+        "kinds": [
+          "unnamed_control"
+        ],
+        "personas": [
+          "screenreader"
+        ]
+      },
+      {
+        "id": "F767013",
+        "control": "page",
+        "severity": "minor",
+        "kinds": [
+          "no_clear_cta"
+        ],
+        "personas": [
+          "skimmer"
+        ]
+      }
+    ]
+  },
+  "ts/fixtures/long-tab.html": {
+    "score": 40,
+    "verdict": "scored",
+    "hotspots": [
+      {
+        "id": "Fbf44c9",
+        "control": "Ghost",
+        "severity": "blocker",
+        "kinds": [
+          "unreachable_by_keyboard",
+          "fake_button"
+        ],
+        "personas": [
+          "keyboard",
+          "screenreader"
+        ]
+      },
+      {
+        "id": "F952f37",
+        "control": "Start",
+        "severity": "blocker",
+        "kinds": [
+          "silent_failure",
+          "slow_or_no_confirmation"
+        ],
+        "personas": [
+          "skimmer"
+        ]
+      },
+      {
+        "id": "Fefc007",
+        "control": "Save",
+        "severity": "blocker",
+        "kinds": [
+          "unreachable_by_keyboard"
+        ],
+        "personas": [
+          "keyboard"
+        ]
+      }
+    ]
+  }
+}

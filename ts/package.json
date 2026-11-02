@@ -1,0 +1,22 @@
+{
+  "name": "first-run-lab",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "First-Run Lab v2: TypeScript + Playwright engine driven by the TLA+ model.",
+  "scripts": {
+    "gen": "node ../tools/gen-statechart.mjs",
+    "test": "node --import tsx --test test/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "demo": "node --import tsx src/demo.ts"
+  },
+  "dependencies": {
+    "playwright": "1.49.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "fast-check": "^3.23.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
