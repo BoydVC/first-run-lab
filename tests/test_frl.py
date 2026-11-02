@@ -112,3 +112,27 @@ def test_external_links_not_checked_or_used_as_cta_offline():
 def test_partial_api_failure_is_a_finding_not_unscorable():
     r = _run("o1", "partialapi.html", 8807)
     assert r["score"] is not None and any("broken_api" in h["kinds"] for h in r["hotspots"])
+def test_links_in_collapsed_details_are_not_visible_controls():
+    r = _run("o1", "collapsed.html", 8811)
+    kinds = {k for h in r["hotspots"] for k in h["kinds"]}
+    assert "unnamed_control" not in kinds and "unreachable_by_keyboard" not in kinds
+def test_keyboard_tabs_until_focus_wraps_past_extra_tab_stops():
+    r = _run("o1", "manystops.html", 8812)
+    assert "unreachable_by_keyboard" not in {k for h in r["hotspots"] for k in h["kinds"]}
+def test_skimmer_survives_fields_redrawn_while_filling():
+    r = _run("o1", "redraw.html", 8813)
+    assert r["score"] is not None and not [x for x in r["sessions"] if x["final"] == "crashed"]
+def test_connection_reset_link_is_a_dead_link_not_a_crash():
+    import http.server, socket, struct, threading
+    class H(http.server.SimpleHTTPRequestHandler):
+        def __init__(self, *a, **k): super().__init__(*a, directory=os.path.join(FIX, "o1"), **k)
+        def log_message(self, *a): pass
+        def do_GET(self):
+            if self.path.endswith("reset.pdf"):
+                self.connection.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER, struct.pack("ii", 1, 0)); self.connection.close(); self.close_connection = True; return
+            super().do_GET()
+    srv = http.server.ThreadingHTTPServer(("127.0.0.1", 8814), H); threading.Thread(target=srv.serve_forever, daemon=True).start()
+    try: r = fr.main("http://127.0.0.1:8814/resetlink.html", "/tmp/frl-reset")
+    finally: srv.shutdown()
+    assert not [x for x in r["sessions"] if x["final"] == "crashed"]
+    assert any("dead_link" in h["kinds"] for h in r["hotspots"])
