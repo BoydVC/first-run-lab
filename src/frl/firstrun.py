@@ -60,17 +60,33 @@ def redact(t):
     return t
 
 SYNTH = {"date": "2026-01-15", "time": "09:30", "datetime-local": "2026-01-15T09:30", "month": "2026-01", "week": "2026-W03", "number": "3", "email": "visitor@example.test", "tel": "", "url": "https://example.test", "search": "test"}
-def fill_form(page):
-    for c in visible(page):
-        if c["tag"] in ("input", "textarea"):
-            t = (page.get_attribute(f"[data-frl='{c['i']}']", "type") or "text").lower()
-            v = SYNTH.get(t, "" if t in ("checkbox", "radio", "file", "range", "color", "submit", "button", "hidden", "image", "reset") else "Test Visitor")
-            if v:
-                try: page.fill(f"[data-frl='{c['i']}']", v, timeout=2000)
-                except Exception: pass  # an unfillable field must not crash the persona
-        if c["tag"] == "select":
-            opts = page.eval_on_selector(f"[data-frl='{c['i']}']", "e=>[...e.options].map(o=>o.value||o.text).filter(Boolean)")
-            if opts: page.select_option(f"[data-frl='{c['i']}']", index=min(1, len(opts) - 1))
+FILL_PASSES = 3
+def _fill_one(page, c):
+    sel = f"[data-frl='{c['i']}']"
+    if c["tag"] == "select":
+        opts = page.eval_on_selector(sel, "e=>[...e.options].map(o=>o.value||o.text).filter(Boolean)")
+        if opts: page.select_option(sel, index=min(1, len(opts) - 1), timeout=2000)
+        return
+    t = (page.get_attribute(sel, "type", timeout=2000) or "text").lower()
+    v = SYNTH.get(t, "" if t in ("checkbox", "radio", "file", "range", "color", "submit", "button", "hidden", "image", "reset") else "Test Visitor")
+    if v: page.fill(sel, v, timeout=2000)
+
+def fill_form(page, s=None):
+    """Fill every visible field. Pages may re-draw fields while we type (e.g. a select re-renders the inputs below it):
+    when a field vanishes mid-fill, re-query the page and carry on; if it keeps vanishing, report it instead of crashing."""
+    done, last = set(), None
+    for _ in range(FILL_PASSES):
+        redrawn, seen = False, {}
+        for c in visible(page):
+            if c["tag"] not in ("input", "textarea", "select"): continue
+            ident = (c["tag"], c["key"]); seen[ident] = seen.get(ident, 0) + 1; ident += (seen[ident],)
+            if ident in done: continue
+            try: _fill_one(page, c); done.add(ident)
+            except Exception:
+                if page.evaluate(f"!!document.querySelector(\"[data-frl='{c['i']}']\")"): done.add(ident)  # still there, just unfillable (readonly etc.)
+                else: redrawn, last = True, c; break  # re-drawn under us: re-query and retry
+        if not redrawn: return
+    if s is not None: finding(s, "form_redraws_while_typing", "major", last["key"], "A field kept being re-drawn while it was being filled in", page)
 
 def arm_feedback(page):
     page.evaluate("""()=>{window.__frlFb=0; window.__frlUrl=location.href; if(window.__frlObs) window.__frlObs.disconnect();
@@ -116,7 +132,7 @@ def run_persona(pw, persona, url, budget, kind="form"):
                 if c:
                     ms = watch_feedback(page, persona["patience_ms"]); frame(s, page, "clicks the main button with the form empty")
                     if ms is None: finding(s, "silent_failure", "blocker", c["key"], "Clicked the main action with empty fields: nothing happened, no error", page)
-                    fill_form(page); arm_feedback(page)
+                    fill_form(page, s); arm_feedback(page)
                     try: page.click(f"[data-frl='{c['i']}']", timeout=3000); again = True
                     except Exception as e:
                         if "Timeout" not in str(e): raise
@@ -163,7 +179,10 @@ def run_persona(pw, persona, url, budget, kind="form"):
         elif pid == "linkchecker":
             from urllib.parse import urljoin
             for c in [c for c in cs if c["tag"] == "a" and c["href"] and not c["href"].startswith(("#", "mailto:", "tel:", "javascript:")) and local(c)][:budget]:
-                r = page.request.get(urljoin(page.url, c["href"])); steps += 1  # outside links can't be checked offline: skipped, not failed
+                steps += 1  # outside links can't be checked offline: skipped, not failed
+                try: r = page.request.get(urljoin(page.url, c["href"]), timeout=10000)
+                except Exception as e:  # connection reset/refused/timeout: the link is broken, not the checker
+                    finding(s, "dead_link", "major", c["key"], f"Link fails to load: {str(e).splitlines()[0][:80]}", page); continue
                 if r.status >= 400: finding(s, "dead_link", "major", c["key"], f"Link returns HTTP {r.status}", page)
             frame(s, page, "opens every link")
         if s.state == "exploring": s.go("budget_exhausted" if steps >= budget else "done", f"{steps} steps")

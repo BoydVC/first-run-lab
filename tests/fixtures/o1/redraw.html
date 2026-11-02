@@ -1,0 +1,6 @@
+<!doctype html><html lang="en"><title>Redraw</title><body><main><h1>Trade form</h1>
+<form onsubmit="event.preventDefault();document.getElementById('st').textContent='Saved'">
+<label for="team">Team</label><select id="team" onchange="draw()"><option value="">Pick</option><option>Alpha</option><option>Beta</option></select>
+<div id="f"></div><button>Save</button><p id="st" role="status"></p></form>
+<script>function draw(){document.getElementById('f').innerHTML=['One','Two','Three'].map(n=>`<label>${n} <input name="${n}"></label>`).join('')}draw();
+document.addEventListener('input',e=>{if(e.target.name)draw()},true)</script></main></body></html>
